@@ -1,0 +1,6 @@
+.buildpath
+composer.lock
+vendor/
+coverage/
+cache/
+api/
