@@ -37,7 +37,7 @@ class Profile {
 		$profiles = [];
 		foreach (new \DirectoryIterator($profileDir) as $file) {
 			if ($file->isFile() && $loader->supports($file->getFilename())) {
-				$profiles[] = $file->getFilename();
+				$profiles[] = $file->getBasename('.yml');
 			}
 		}
 

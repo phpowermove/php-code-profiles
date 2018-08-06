@@ -139,4 +139,10 @@ class ProfileTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($config->getWhitespace('after_open'));
 		$this->assertTrue($config->getWhitespace('before_assignment', 'assignments'));
 	}
+
+	public function testProfileLoader() {
+		$config = new Profile('psr-2');
+		$indentChar = $config->getIndentation('character');
+		$this->assertEquals('space', $indentChar);
+	}
 }
