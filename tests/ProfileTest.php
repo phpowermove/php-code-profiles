@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 namespace gossi\code\profiles\tests;
 
 use gossi\code\profiles\Profile;
+use PHPUnit\Framework\TestCase;
 
-class ProfileTest extends \PHPUnit_Framework_TestCase {
-
-	public function testConfig() {
+class ProfileTest extends TestCase {
+	public function testConfig(): void {
 		$expected = [
 			'indentation' => [
 				'character' => 'tab',
@@ -120,29 +120,45 @@ class ProfileTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, $config->getConfig());
 	}
 
-	public function testIndentation() {
+	public function testIndentation(): void {
 		$config = new Profile();
 
 		$this->assertEquals('tab', $config->getIndentation('character'));
 	}
 
-	public function testBraces() {
+	public function testBraces(): void {
 		$config = new Profile();
 
 		$this->assertEquals('same', $config->getBraces('struct'));
 	}
 
-	public function testWhitespace() {
+	public function testWhitespace(): void {
 		$config = new Profile();
 
 		$this->assertTrue($config->getWhitespace('before_curly'));
+		$this->assertTrue($config->getWhitespace('before_curly', 'struct'));
 		$this->assertFalse($config->getWhitespace('after_open'));
 		$this->assertTrue($config->getWhitespace('before_assignment', 'assignments'));
+		$this->assertFalse($config->getWhitespace('wrong_key'));
 	}
 
-	public function testProfileLoader() {
+	public function testProfileLoader(): void {
 		$config = new Profile('psr-2');
 		$indentChar = $config->getIndentation('character');
 		$this->assertEquals('space', $indentChar);
+	}
+
+	public function testGetBlanks(): void {
+		$config = new Profile();
+
+		$this->assertEquals(1, $config->getBlanks('before_methods'));
+		$this->assertEquals(0, $config->getBlanks('non_existent_key'));
+	}
+
+	public function testNewLines(): void {
+		$config = new Profile();
+
+		$this->assertFalse($config->getNewline('catch'));
+		$this->assertFalse($config->getNewline('non_existent_key'));
 	}
 }
