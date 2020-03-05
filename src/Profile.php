@@ -49,7 +49,12 @@ class Profile {
 		return $this->config;
 	}
 
-	public function getIndentation(string $key): string {
+	/**
+	 * @param string $key
+	 *
+	 * @return string|int|bool
+	 */
+	public function getIndentation(string $key) {
 		return $this->config['indentation'][$key] ?? '';
 	}
 

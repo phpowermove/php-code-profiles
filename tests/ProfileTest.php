@@ -124,12 +124,15 @@ class ProfileTest extends TestCase {
 		$config = new Profile();
 
 		$this->assertEquals('tab', $config->getIndentation('character'));
+		$this->assertEquals(1, $config->getIndentation('size'));
+		$this->assertEquals('', $config->getIndentation('wrong_key'));
 	}
 
 	public function testBraces(): void {
 		$config = new Profile();
 
 		$this->assertEquals('same', $config->getBraces('struct'));
+		$this->assertEquals('', $config->getBraces('wrong_key'));
 	}
 
 	public function testWhitespace(): void {
